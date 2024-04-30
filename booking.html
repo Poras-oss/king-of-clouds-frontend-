@@ -47,10 +47,10 @@
     var reservationDate = document.querySelector('input[name="reservation-date"]').value;
     var reservationTime = document.querySelector('select[name="reservation-time"]').value;
     var phoneNumber = document.querySelector('input[name="phone"]').value;
-    var otp = document.querySelector('input[name="otp"]').value;
+   // var otp = document.querySelector('input[name="otp"]').value;
 
     // Check if fields are empty
-    if (reservationDate === '' || reservationTime === '' || phoneNumber === '' || otp === '') {
+    if (reservationDate === '' || reservationTime === '' || phoneNumber === '') {
         alert('Please fill out all required fields (Reservation Date, Reservation Time, Phone Number, OTP)');
         return false; // Prevent form submission
     }
@@ -62,15 +62,15 @@
     }
 
     // Check if OTP matches the global OTP variable
-    if (otp !== document.getElementById('hidotp').value) {
-        alert('Invalid OTP. Please enter the correct OTP.');
-        return false; // Prevent form submission
-    }
+    // if (otp !== document.getElementById('hidotp').value) {
+    //     alert('Invalid OTP. Please enter the correct OTP.');
+    //     return false; // Prevent form submission
+    // }
 
     return true; // Allow form submission
   }
   
-  function sendOTP() {
+ /* function sendOTP() {
       // Generate a 4-digit random OTP
       var otp = Math.floor(1000 + Math.random() * 9000); // Generate a random number between 1000 and 9999
       document.getElementById('hidotp').value = otp
@@ -102,7 +102,7 @@
           console.error('Error sending OTP:', error);
           alert('Failed to send OTP. Please try again.');
       });
-  }
+  } */
 
 
 
@@ -428,7 +428,7 @@
                     autocomplete="off"
                     class="input-field" />
                 </div>
-                <div class="input-wrapper">
+                <!-- <div class="input-wrapper">
                   <input
                     type="text"
                     name="otp"
@@ -442,7 +442,7 @@
                       >Send OTP</span
                     >
                   </button>
-                </div>
+                </div> -->
 
                 <input type="hidden" name="amount" id="amount" value="2500"> <!-- Amount per person -->
                 <input type="hidden" name="reservation-time" id="reservation-time" value="">
