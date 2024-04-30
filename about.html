@@ -46,7 +46,7 @@
     const imageGallery = document.getElementById('imageGallery');
 
     try {
-      fetch('http://127.0.0.1:5000/get_all')
+      fetch('https://king-of-clouds.vercel.app/get_all')
         .then(response => response.json())
         .then(data => {
             const galleryContainer = document.getElementById('imageGallery');

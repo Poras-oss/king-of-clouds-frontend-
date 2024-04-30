@@ -45,7 +45,7 @@ function hideLoading() {
             var formData = new FormData();
             formData.append('file', file);
             showLoading()
-            fetch('https://king-of-clouds-backend.vercel.app/upload', {
+            fetch('https://king-of-clouds.vercel.app/upload', {
               method: 'POST',
               body: formData
             }).then(response => {
@@ -66,7 +66,7 @@ function hideLoading() {
           function deleteImage(imageId) {
           showLoading();
     // Make an AJAX request to delete the image
-    fetch(`https://king-of-clouds-backend.vercel.app/delete/${imageId}`, {
+    fetch(`https://king-of-clouds.vercel.app/delete/${imageId}`, {
         method: 'DELETE',
     })
     .then(response => {
@@ -107,7 +107,7 @@ function hideLoading() {
    // Function to fetch images from server and populate the table
    function populateImageTable() {
     showLoading();
-    fetch('https://king-of-clouds-backend.vercel.app/get_all')
+    fetch('https://king-of-clouds.vercel.app/get_all')
       .then(response => response.json())
       .then(data => {
         // Clear existing table rows
