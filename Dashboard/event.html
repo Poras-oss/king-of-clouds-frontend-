@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li>
+          <div class="logo">
+            <img src="assets/logo.svg" alt="" />
+            <span class="nav-item">Dashboard</span>
+          </div>
+        </li>
+        <li>
+          <a href="/">
+            <i class="fas fa-home"></i>
+            <span class="nav-item">Booking</span>
+          </a>
+        </li>
+        <li>
+          <a href="gallery.html">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="event.html" class="active">
+            <i class="fas fa-user"></i>
+            <span class="nav-item">Events</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div style="min-width: 250px !important"></div>
+
+    <section class="event">
+      <h1 class="heading">Events</h1>
+
+      <table class="event-table">
+        <tr>
+          <th>Event Name</th>
+          <th>Event Description</th>
+          <th>Event Date</th>
+          <th>Photo</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="Event Name" /></td>
+          <td>
+            <input type="text" placeholder="Event Description" />
+          </td>
+          <td><input type="date" /></td>
+          <td>
+            <div class="img-area">
+              <!-- <img src="" alt="" /> -->
+              <input type="file" id="file-1" class="imgInput" accept="image/" />
+              <label for="file-1">Upload Image </label>
+            </div>
+          </td>
+          <td>
+            <div class="action-btn">
+              <button>Update</button>
+              <button>Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="Event Name" /></td>
+          <td>
+            <input type="text" placeholder="Event Description" />
+          </td>
+          <td><input type="date" /></td>
+          <td>
+            <div class="img-area">
+              <!-- <img src="" alt="" /> -->
+              <input type="file" id="file-2" class="imgInput" accept="image/" />
+              <label for="file-2">Upload Image </label>
+            </div>
+          </td>
+          <td>
+            <div class="action-btn">
+              <button>Update</button>
+              <button>Delete</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="Event Name" /></td>
+          <td>
+            <input type="text" placeholder="Event Description" />
+          </td>
+          <td><input type="date" /></td>
+          <td>
+            <div class="img-area">
+              <!-- <img src="" alt="" /> -->
+              <input type="file" id="file-3" class="imgInput" accept="image/" />
+              <label for="file-3">Upload Image </label>
+            </div>
+          </td>
+          <td>
+            <div class="action-btn">
+              <button>Update</button>
+              <button>Delete</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+  <script src="imgUpload.js"></script>
+</body>
+
+</html>
+</DOCTYPE>

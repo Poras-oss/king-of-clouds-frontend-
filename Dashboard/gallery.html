@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Dashboard</title>
+      <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+      <link rel="stylesheet" href="style.css" />
+      <!-- Font Awesome Cdn Link -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+        <script>
+
+          // Function to show a loading spinner
+function showLoading() {
+    // You can implement your loading UI here, for example:
+    document.getElementById('loading').style.display = 'block';
+}
+
+// Function to hide the loading spinner
+function hideLoading() {
+    // You can implement your loading UI here, for example:
+    document.getElementById('loading').style.display = 'none';
+}
+
+          function selectImage(imageId) {
+            document.getElementById('file-' + imageId).click();
+          }
+        
+          function updateImage(imageId) {
+            var fileInput = document.getElementById('file-' + imageId);
+            var file = fileInput.files[0];
+            if (file) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                var preview = document.getElementById('preview-' + imageId);
+                preview.src = e.target.result;
+                uploadImage(imageId, file);
+              }
+              reader.readAsDataURL(file);
+            }
+          }
+        
+          function uploadImage(imageId, file) {
+            var formData = new FormData();
+            formData.append('file', file);
+            showLoading()
+            fetch('http://127.0.0.1:5000/upload', {
+              method: 'POST',
+              body: formData
+            }).then(response => {
+              if (response.ok) {
+                hideLoading();
+                return response.json();
+              }
+              throw new Error('Network response was not ok.');
+            }).then(data => {
+              hideLoading();
+              // Optionally handle the response data (e.g., display a message)
+            }).catch(error => {
+              hideLoading();
+              console.error('Error:', error);
+            });
+          }
+        
+          function deleteImage(imageId) {
+          showLoading();
+    // Make an AJAX request to delete the image
+    fetch(`http://127.0.0.1:5000/delete/${imageId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.ok) {
+          hideLoading();
+            // Image deleted successfully
+            console.log('Image deleted successfully');
+            // Find the closest table row containing the image
+            var row = document.querySelector(`tr[data-image-id="${imageId}"]`);
+            // If the row exists, remove it from the table
+            if (row) {
+                row.remove();
+            } else {
+                console.error('Row not found');
+            }
+        } else {
+          hideLoading();
+            // Handle error
+            console.error('Error:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+    function uploadMultipleImages() {
+    var filesInput = document.getElementById('multiple-files');
+    var files = filesInput.files;
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      // Call uploadImage function for each file
+      uploadImage('new', file); // You can pass a unique identifier for each file here
+    }
+  }
+
+   // Function to fetch images from server and populate the table
+   function populateImageTable() {
+    showLoading();
+    fetch('http://127.0.0.1:5000/get_all')
+      .then(response => response.json())
+      .then(data => {
+        // Clear existing table rows
+        document.getElementById('imageTable').innerHTML = '';
+        console.log(data);
+
+        // Loop through each image data and create table rows
+        data.images.forEach((image, index) => {
+          var row = document.createElement('tr');
+          row.dataset.imageId = image._id; // Store MongoDB ID as a data attribute
+          row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>
+            <div class="img-area">
+                <img src="data:image/jpeg;base64,${image.data}" alt="Image" />
+            </div>
+        </td>
+        <td>
+            <div class="action-btn">
+                <button onclick="deleteImage('${image._id}')">Delete</button> <!-- Pass the button element -->
+            </div>
+        </td>
+    `;
+          document.getElementById('imageTable').appendChild(row);
+          hideLoading();
+        });
+      })
+      .catch(error => {
+        hideLoading();
+        console.error('Error:', error);
+      });
+  }
+
+  // Call the populateImageTable function when the page loads
+  window.onload = populateImageTable;
+
+        </script>
+    </head>
+
+    <body>
+      <div class="container">
+        <nav>
+          <ul>
+            <li>
+              <div class="logo">
+                <img src="assets/logo.svg" alt="" />
+                <span class="nav-item">Dashboard</span>
+              </div>
+            </li>
+            <li>
+              <a href="index.html">
+                <i class="fas fa-home"></i>
+                <span class="nav-item">Booking</span>
+              </a>
+            </li>
+            <li>
+              <a href="gallery.html" class="active">
+                <i class="fas fa-user"></i>
+                <span class="nav-item">Gallery</span>
+              </a>
+            </li>
+            <li>
+              <a href="event.html">
+                <i class="fas fa-user"></i>
+                <span class="nav-item">Events</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div style="width: 250px"></div>
+
+        <section class="gallery">
+          <h1 class="heading">Gallery</h1>
+
+          <table class="gallery-table">
+            <tr>
+              <td colspan="3">
+                <h2>Add Image(s)</h2>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="file" id="multiple-files" class="imgInput" accept="image/*" multiple />
+                <button onclick="uploadMultipleImages()" style="margin-left: 190px">Upload</button>
+              </td>
+            </tr>
+          </table>
+          <br /><br />
+             <!-- Loading modal -->
+      <div id="loading" class="modal">
+        <div class="modal-content">
+          <div class="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+
+          <table class="gallery-table" id="imageTable">
+            <tr>
+              <th>S No.</th>
+              <th>Photo</th>
+              <th>Action</th>
+            </tr>
+          </table>
+         
+        </section>
+      </div>
+      
+    </body>
+  </html></DOCTYPE
+>
