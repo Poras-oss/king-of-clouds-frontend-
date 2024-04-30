@@ -83,7 +83,7 @@
       }
 
       // Perform AJAX request to send OTP via Twilio
-      fetch('http://localhost:5000/send_otp', {
+      fetch('https://king-of-clouds-backend.vercel.app/send_otp', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -318,7 +318,7 @@
         <section class="reservation booking" id="reservation">
           <div class="container">
             <div class="form reservation-form bg-black-10">
-              <form class="form-left" action="http://localhost:5000/create_order" method="post" onsubmit="return validateForm()">
+              <form class="form-left" action="https://king-of-clouds-backend.vercel.app/create_order" method="post" onsubmit="return validateForm()">
                 <h2 class="headline-1 text-center">Online Reservation</h2>
 
                 <p class="form-text text-center">
